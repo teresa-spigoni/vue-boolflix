@@ -14,7 +14,7 @@
     <div id="app">
 
         <!-- header -->
-        <input v-model="searchedMovie" @keyup="moviesGenerator()">
+        <input v-model="searchedMovie" @keyup.enter="moviesGenerator()">
         <button @click="moviesGenerator()">SEARCH</button>
         <!-- header -->
 
