@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <link rel="stylesheet" href="css/master.css">
+    <title>Boolflix</title>
+</head>
+<body>
+
+    <!-- root -->
+    <div id="app">
+
+        <!-- header -->
+        <input v-model="searchedMovie" @keyup="moviesGenerator()">
+        <button @click="moviesGenerator()">SEARCH</button>
+        <!-- header -->
+
+        <!-- main -->
+        <main class="flex sp-btwn">
+
+            <div class="movie-container" v-for="movie in moviesList">
+                <div> <strong>Titolo:</strong> {{movie.title}} </div>
+                <div> <strong>Titolo Originale:</strong> {{movie.original_title}} </div>
+                <div> <strong>Lingua:</strong> {{movie.original_language}} </div>
+                <div> <strong>Voto:</strong> {{movie.vote_average}} </div>
+            </div>
+
+        </main>
+        <!-- main -->
+
+    </div>
+    <!-- root -->
+
+    <!-- script -->
+    <script src="js/script.js"></script>
+    <!-- script -->
+
+</body>
+</html>
