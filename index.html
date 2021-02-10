@@ -25,7 +25,10 @@
           <!-- movies -->
           <h2 v-if="moviesList.length > 0">MOVIES</h2>
           <div class="flex">
-            <div class="container" v-for="movie in moviesList">
+            <div class="container" v-for="movie in moviesList" v-if="movie.backdrop_path">
+              <div>
+                <img :src="'https://image.tmdb.org/t/p/w300' + movie.backdrop_path" alt="">
+              </div>
               <div> <strong>Titolo:</strong> {{movie.title}} </div>
               <div> <strong>Titolo Originale:</strong> {{movie.original_title}} </div>
               <div> <strong>Lingua:</strong> {{movie.original_language}} </div>
@@ -42,7 +45,10 @@
           <!-- series -->
           <h2 v-if="seriesList.length > 0">SERIES</h2>
           <div class="flex">
-            <div class="container" v-for="serie in seriesList">
+            <div class="container" v-for="serie in seriesList" v-if="serie.backdrop_path">
+              <div>
+                <img :src="'https://image.tmdb.org/t/p/w300' + serie.backdrop_path" alt="">
+              </div>
               <div> <strong>Titolo:</strong> {{serie.name}} </div>
               <div> <strong>Titolo Originale:</strong> {{serie.original_name}} </div>
               <div> <strong>Lingua:</strong> {{serie.original_language}} </div>
