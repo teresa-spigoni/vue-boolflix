@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/master.css">
     <title>Boolflix</title>
@@ -15,52 +17,95 @@
     <div id="app">
 
         <!-- header -->
-        <input id="search" v-model="searched" @keyup.enter="moviesGenerator(), seriesGenerator()">
-        <button id="search-button" @click="moviesGenerator(), seriesGenerator()">SEARCH</button>
+        <header>
+
+          <!-- container -->
+          <div class="container flex sp-btwn">
+
+            <!-- logo -->
+            <div class="logo">
+              <img src="img/logo.png" alt="">
+            </div>
+            <!-- logo -->
+
+            <!-- search -->
+            <div class="search">
+              <input id="search" v-model="searched" @keyup.enter="moviesGenerator(), seriesGenerator()">
+            </div>
+            <!-- search -->
+
+          </div>
+          <!-- container -->
+
+        </header>
         <!-- header -->
 
         <!-- main -->
         <main>
 
-          <!-- movies -->
-          <h2 v-if="moviesList.length > 0">MOVIES</h2>
-          <div class="flex">
-            <div class="container" v-for="movie in moviesList" v-if="movie.backdrop_path">
-              <div>
-                <img :src="'https://image.tmdb.org/t/p/w300' + movie.backdrop_path" alt="">
-              </div>
-              <div> <strong>Titolo:</strong> {{movie.title}} </div>
-              <div> <strong>Titolo Originale:</strong> {{movie.original_title}} </div>
-              <div> <strong>Lingua:</strong> {{movie.original_language}} </div>
-              <div class="vote"> <strong>Voto:</strong>
-                <i :class="vote(movie, 0, 0)"></i>
-                <i :class="vote(movie, 1, 1)"></i>
-                <i :class="vote(movie, 2, 2)"></i>
-                <i :class="vote(movie, 3, 3)"></i>
-                <i :class="vote(movie, 4, 4)"></i>
-              </div>
-            </div>
-          </div>
+          <!-- container -->
+          <div class="container">
 
-          <!-- series -->
-          <h2 v-if="seriesList.length > 0">SERIES</h2>
-          <div class="flex">
-            <div class="container" v-for="serie in seriesList" v-if="serie.backdrop_path">
-              <div>
-                <img :src="'https://image.tmdb.org/t/p/w300' + serie.backdrop_path" alt="">
+            <!-- movies -->
+            <h2 v-if="moviesList.length > 0">MOVIES</h2>
+            <div class="flex main-container">
+
+              <!-- card -->
+              <div class="card-container" v-for="movie in moviesList" v-if="movie.poster_path">
+                <div class="cover">
+                  <img :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
+                </div>
+                <div class="info">
+                  <div> <strong>Title:</strong> {{movie.title}} </div>
+                  <div v-if="movie.original_title !== movie.title"> <strong>Original Title:</strong> {{movie.original_title}} </div>
+                  <div> <strong>Overview:</strong> {{movie.overview}} </div>
+                  <div>
+                    <strong>Lang:</strong>
+                    <img :src="'img/' + movie.original_language + '.png'" alt="" class="flag">
+                  </div>
+                  <div class="vote">
+                    <strong>Vote:</strong>
+                    <i class="fa fa-star" v-for="x in vote(movie)"></i>
+                    <i class="fa fa-star-o" v-for="x in (5 - vote(movie))"></i>
+                  </div>
+                </div>
               </div>
-              <div> <strong>Titolo:</strong> {{serie.name}} </div>
-              <div> <strong>Titolo Originale:</strong> {{serie.original_name}} </div>
-              <div> <strong>Lingua:</strong> {{serie.original_language}} </div>
-              <div class="vote"> <strong>Voto:</strong>
-                <i :class="vote(serie, 0, 0)"></i>
-                <i :class="vote(serie, 1, 1)"></i>
-                <i :class="vote(serie, 2, 2)"></i>
-                <i :class="vote(serie, 3, 3)"></i>
-                <i :class="vote(serie, 4, 4)"></i>
-              </div>
+              <!-- card -->
+
             </div>
+            <!-- movies -->
+
+            <!-- series -->
+            <h2 v-if="seriesList.length > 0">SERIES</h2>
+            <div class="flex main-container">
+
+              <!-- card -->
+              <div class="card-container" v-for="serie in seriesList" v-if="serie.poster_path">
+                <div class="cover">
+                  <img :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path" alt="">
+                </div>
+                <div class="info">
+                  <div> <strong>Title:</strong> {{serie.name}} </div>
+                  <div v-if="serie.original_name !== serie.name"> <strong>Original Title:</strong> {{serie.original_name}} </div>
+                  <div> <strong>Overview:</strong> {{serie.overview}} </div>
+                  <div>
+                    <strong>Lang:</strong>
+                    <img :src="'img/' + serie.original_language + '.png'" alt="" class="flag">
+                  </div>
+                  <div class="vote">
+                    <strong>Vote:</strong>
+                    <i class="fa fa-star" v-for="x in vote(serie)"></i>
+                    <i class="fa fa-star-o" v-for="x in (5 - vote(serie))"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- card -->
+
+            </div>
+            <!-- series -->
+
           </div>
+          <!-- container -->
 
         </main>
         <!-- main -->
