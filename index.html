@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/master.css">
     <title>Boolflix</title>
 </head>
@@ -14,19 +15,46 @@
     <div id="app">
 
         <!-- header -->
-        <input v-model="searchedMovie" @keyup.enter="moviesGenerator()">
-        <button @click="moviesGenerator()">SEARCH</button>
+        <input id="search" v-model="searched" @keyup.enter="moviesGenerator(), seriesGenerator()">
+        <button id="search-button" @click="moviesGenerator(), seriesGenerator()">SEARCH</button>
         <!-- header -->
 
         <!-- main -->
-        <main class="flex sp-btwn">
+        <main>
 
-            <div class="movie-container" v-for="movie in moviesList">
-                <div> <strong>Titolo:</strong> {{movie.title}} </div>
-                <div> <strong>Titolo Originale:</strong> {{movie.original_title}} </div>
-                <div> <strong>Lingua:</strong> {{movie.original_language}} </div>
-                <div> <strong>Voto:</strong> {{movie.vote_average}} </div>
+          <!-- movies -->
+          <h2 v-if="moviesList.length > 0">MOVIES</h2>
+          <div class="flex">
+            <div class="container" v-for="movie in moviesList">
+              <div> <strong>Titolo:</strong> {{movie.title}} </div>
+              <div> <strong>Titolo Originale:</strong> {{movie.original_title}} </div>
+              <div> <strong>Lingua:</strong> {{movie.original_language}} </div>
+              <div class="vote"> <strong>Voto:</strong>
+                <i :class="vote(movie, 0, 0)"></i>
+                <i :class="vote(movie, 1, 1)"></i>
+                <i :class="vote(movie, 2, 2)"></i>
+                <i :class="vote(movie, 3, 3)"></i>
+                <i :class="vote(movie, 4, 4)"></i>
+              </div>
             </div>
+          </div>
+
+          <!-- series -->
+          <h2 v-if="seriesList.length > 0">SERIES</h2>
+          <div class="flex">
+            <div class="container" v-for="serie in seriesList">
+              <div> <strong>Titolo:</strong> {{serie.name}} </div>
+              <div> <strong>Titolo Originale:</strong> {{serie.original_name}} </div>
+              <div> <strong>Lingua:</strong> {{serie.original_language}} </div>
+              <div class="vote"> <strong>Voto:</strong>
+                <i :class="vote(serie, 0, 0)"></i>
+                <i :class="vote(serie, 1, 1)"></i>
+                <i :class="vote(serie, 2, 2)"></i>
+                <i :class="vote(serie, 3, 3)"></i>
+                <i :class="vote(serie, 4, 4)"></i>
+              </div>
+            </div>
+          </div>
 
         </main>
         <!-- main -->

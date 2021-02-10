@@ -1,3 +1,4 @@
+/* utility */
 *{
     box-sizing: border-box;
     margin: 0;
@@ -12,17 +13,36 @@
     display: flex;
     flex-wrap: wrap;
 }
+/* utility */
 
-.sp-btwn{
-    justify-content: space-between;
+#search{
+    padding: 5px 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#search:focus, #search-button:focus{
+    outline: none;
+}
+
+#search-button{
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 10px;
 }
 
 main{
     margin-top: 20px;
 }
 
-.movie-container{
+.container{
     border: 1px solid #000;
     padding: 20px;
-    margin-bottom: 10px;
+    margin: 0 10px 10px 0;
+}
+
+.vote i{
+    color: darkgoldenrod;
 }
