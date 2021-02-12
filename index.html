@@ -30,7 +30,8 @@
 
             <!-- search -->
             <div class="search">
-              <input id="search" v-model="searched" @keyup.enter="moviesGenerator(), seriesGenerator()">
+              <input id="search" v-model="searched" @keyup.enter="search()">
+              <button id="search-button">search</button>
             </div>
             <!-- search -->
 
@@ -51,9 +52,10 @@
             <div class="flex main-container">
 
               <!-- card -->
-              <div class="card-container" v-for="movie in moviesList" v-if="movie.poster_path">
+              <div class="card-container" v-for="movie in moviesList">
                 <div class="cover">
-                  <img :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
+                  <img v-if="movie.poster_path" :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
+                  <img v-else src="https://via.placeholder.com/342x513/BBADAF/000000/?text=POSTER+NOT+AVAILABLE" alt="">
                 </div>
                 <div class="info">
                   <div> <strong>Title:</strong> {{movie.title}} </div>
@@ -61,7 +63,8 @@
                   <div> <strong>Overview:</strong> {{movie.overview}} </div>
                   <div>
                     <strong>Lang:</strong>
-                    <img :src="'img/' + movie.original_language + '.png'" alt="" class="flag">
+                    <img v-if="flags.includes(movie.original_language)" :src="'img/' + movie.original_language + '.png'" alt="" class="flag">
+                    <span v-else>{{movie.original_language}}</span>
                   </div>
                   <div class="vote">
                     <strong>Vote:</strong>
@@ -76,13 +79,14 @@
             <!-- movies -->
 
             <!-- series -->
-            <h2 v-if="seriesList.length > 0">SERIES</h2>
+            <h2 v-if="seriesList.length > 0">TV SERIES</h2>
             <div class="flex main-container">
 
               <!-- card -->
-              <div class="card-container" v-for="serie in seriesList" v-if="serie.poster_path">
+              <div class="card-container" v-for="serie in seriesList">
                 <div class="cover">
-                  <img :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path" alt="">
+                  <img  v-if="serie.poster_path" :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path" alt="">
+                  <img v-else src="https://via.placeholder.com/342x513/BBADAF/000000/?text=POSTER+NOT+AVAILABLE" alt="">
                 </div>
                 <div class="info">
                   <div> <strong>Title:</strong> {{serie.name}} </div>
@@ -90,7 +94,8 @@
                   <div> <strong>Overview:</strong> {{serie.overview}} </div>
                   <div>
                     <strong>Lang:</strong>
-                    <img :src="'img/' + serie.original_language + '.png'" alt="" class="flag">
+                    <img v-if="flags.includes(serie.original_language)" :src="'img/' + serie.original_language + '.png'" alt="" class="flag">
+                    <span v-else>{{serie.original_language}}</span>
                   </div>
                   <div class="vote">
                     <strong>Vote:</strong>
