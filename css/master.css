@@ -7,6 +7,7 @@
 
 body{
   font-family: 'Roboto', sans-serif;
+  background: #1b1b1b;
 }
 
 .flex{
@@ -19,48 +20,142 @@ body{
 }
 
 .container{
-  width: 1100px;
+  width: 1400px;
   margin: 0 auto;
+}
+
+i{
+  color: #fff;
+  cursor: pointer;
+}
+
+img{
+  cursor: pointer;
+}
+
+.none{
+  display: none;
 }
 /* utility */
 
 header{
   width: 100%;
   height: 80px;
-  padding: 20px 0;
-  background: #000;
+  padding: 25px 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,0.3));
+}
+
+.logo, .options{
+  float: left;
 }
 
 .logo img{
-  height: 40px;
+  height: 30px;
+  padding-right: 25px;
+}
+
+.options{
+  margin-top: 5px;
+}
+
+.options a{
+  text-decoration: none;
+  color: #fff;
+  margin-left: 15px;
+  font-size: 12px;
+}
+
+.options select{
+  margin-left: 15px;
+  background: #1b1b1b;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.search{
+  float: left;
+  margin-right: 20px;
+}
+
+.search i{
+  margin-top: 7px;
 }
 
 #search{
-    padding: 5px 10px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+  padding: 5px 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-right: 5px;
 }
 
-#search:focus, #search-button:focus{
-    outline: none;
+#search:focus{
+  outline: none;
 }
 
-#search-button{
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 10px;
+.user-options{
+  float: left;
+}
+
+.user-options i{
+  margin-right: 18px;
+  margin-top: 5px;
+}
+
+.fa-gift{
+  font-size: 19px;
+}
+
+.user{
+  float: left;
+  position: relative;
+}
+
+.user img{
+  height: 30px;
+  border-radius: 5px;
+  vertical-align: -8px;
+}
+
+.user i{
+  font-size: 10px;
+  margin-left: 3px;
+}
+
+.users-menu{
+  width: 100px;
+  padding: 0 5px;
+  position: absolute;
+  top: 40px;
+  left: -30px;
+  background: #1b1b1b;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 11px;
+}
+
+.users-menu ul li{
+  cursor: pointer;
+  list-style: none;
+  padding: 5px 0;
+}
+
+.users-menu ul li img{
+  margin-right: 3px;
+  vertical-align: middle;
 }
 
 main{
-    background: #1b1b1b;
-    padding: 20px 0;
-    width: 100%;
-    min-height: calc(100vh - 80px);
+  padding: 20px 0;
+  width: 100%;
+  min-height: calc(100vh - 80px);
 }
 
 h2{
+  font-size: 18px;
   color: #b81d24;
   margin: 20px 0;
 }
@@ -88,17 +183,22 @@ h2{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 280px;
-  font-size: 11px;
+  width: 160px;
+  font-size: 8px;
   color: #fff;
 }
 
+.overview{
+  max-height: 150px;
+  overflow-y: auto;
+}
+
 .info strong{
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .flag{
-  height: 12px;
+  height: 8px;
   vertical-align: middle;
 }
 

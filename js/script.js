@@ -1,23 +1,37 @@
 new Vue({
     el: '#app',
     data: {
-        searched: '',
-        moviesList: [],
-        moviesCredits: [],
-        moviesGenres: [],
-        seriesList: [],
-        seriesCredits: [],
-        seriesGenres: [],
-        flags: ['de', 'en', 'es', 'fr', 'it', 'ja']
+      searched: '',
+      moviesList: [],
+      moviesGenres: [],
+      seriesList: [],
+      seriesGenres: [],
+      flags: ['de', 'en', 'es', 'fr', 'it', 'ja']
     },
     methods: {
+      // search methods
+      showSearch: function () {
+        const search = document.getElementById('search');
+        search.classList.toggle('none')
+      },
+      hideSearch: function () {
+        const search = document.getElementById('search');
+        search.classList.add('none');
+        this.searched = '';
+      },
+      showMenu: function () {
+        const menu = document.getElementsByClassName('users-menu')[0];
+        menu.classList.toggle('none');
+      },
       search: function () {
         this.moviesGenerator();
         this.seriesGenerator();
+        this.hideSearch();
       },
+      // movies methods
       moviesGenerator: function() {
           const self = this;
-          self.moviesList = [];
+          self.moviesZero();
           axios
               .get('https://api.themoviedb.org/3/search/movie', {
                 params: {
@@ -27,26 +41,41 @@ new Vue({
               })
               .then(function(the) {
                   self.moviesList = the.data.results;
-              })
+              });
       },
-      movieCredits: function () {
+      newMovies: function () {
         const self = this;
-        self.moviesCredits = [];
+        self.moviesZero();
         axios
-            .get('https://api.themoviedb.org/3/movie/' + '9762' + '/credits', {
+            .get('https://api.themoviedb.org/3/movie/popular', {
               params: {
                 api_key: '95d6ec199940a49c89273e717c71bedf',
               },
             })
             .then(function(the) {
-              for (var x = 0; x < 5; x++) {
-                self.moviesCredits += the.data.cast[x];
-              }
+                self.moviesList = the.data.results;
             })
       },
+      homeMovies: function () {
+        const self = this;
+        self.moviesZero();
+        axios
+            .get('https://api.themoviedb.org/3/movie/now_playing', {
+              params: {
+                api_key: '95d6ec199940a49c89273e717c71bedf',
+              },
+            })
+            .then(function(the) {
+                self.moviesList = the.data.results;
+            })
+      },
+      moviesZero: function () {
+        this.moviesList = [];
+      },
+      // series methods
       seriesGenerator: function() {
           const self = this;
-          self.seriesList = [];
+          self.seriesZero();
           axios
               .get('https://api.themoviedb.org/3/search/tv', {
                 params: {
@@ -56,63 +85,45 @@ new Vue({
               })
               .then(function(the) {
                   self.seriesList = the.data.results;
-              })
+              });
       },
-      serieCredits: function() {
+      newSeries: function () {
         const self = this;
-        self.seriesCredits = [];
+        self.seriesZero();
         axios
-            .get('https://api.themoviedb.org/3/tv/' + '9762' + '/credits', {
+            .get('https://api.themoviedb.org/3/tv/popular', {
               params: {
                 api_key: '95d6ec199940a49c89273e717c71bedf',
               },
             })
             .then(function(the) {
-              for (var x = 0; x < 5; x++) {
-                self.seriesCredits += the.data.cast[x];
-              }
+                self.seriesList = the.data.results;
             })
+      },
+      homeSeries: function () {
+        const self = this;
+        self.seriesZero();
+        axios
+            .get('https://api.themoviedb.org/3/tv/on_the_air', {
+              params: {
+                api_key: '95d6ec199940a49c89273e717c71bedf',
+              },
+            })
+            .then(function(the) {
+                self.seriesList = the.data.results;
+            })
+      },
+      seriesZero: function () {
+        this.seriesList = [];
       },
       vote: function(movie) {
           return (Math.ceil(movie.vote_average / 2))
       }
     },
     mounted() {
-      // due chiamate, una per i generi tv e l'altra per i generi movie
+      const self = this;
+      self.homeMovies();
+      self.homeSeries();
     }
 });
 Vue.config.devtools = true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//

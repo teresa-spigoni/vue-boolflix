@@ -22,18 +22,64 @@
           <!-- container -->
           <div class="container flex sp-btwn">
 
-            <!-- logo -->
-            <div class="logo">
-              <img src="img/logo.png" alt="">
-            </div>
-            <!-- logo -->
+            <!-- header left -->
+            <div>
 
-            <!-- search -->
-            <div class="search">
-              <input id="search" v-model="searched" @keyup.enter="search()">
-              <button id="search-button">search</button>
+              <!-- logo -->
+              <div class="logo">
+                <img src="img/logo.png" alt="">
+              </div>
+              <!-- logo -->
+
+              <!-- options -->
+              <div class="options">
+                <span><a href="#" @click="homeMovies(), homeSeries()">Home</a></span>
+                <span><a href="#" @click="seriesGenerator(), moviesZero()">TV Series</a></span>
+                <span><a href="#" @click="moviesGenerator(), seriesZero()">Movies</a></span>
+                <span><a href="#" @click="newMovies(), newSeries()">New</a></span>
+              </div>
+              <!-- options -->
+
             </div>
-            <!-- search -->
+            <!-- header left -->
+
+            <!-- header right -->
+            <div>
+
+              <!-- search -->
+              <div class="search">
+                <input class="none" id="search" v-model="searched" @keyup.enter="search()">
+                <i class="fa fa-search" @click="showSearch()"></i>
+              </div>
+              <!-- search -->
+
+              <!-- options -->
+              <div class="user-options">
+                <i class="fa fa-gift"></i>
+                <i class="fa fa-bell"></i>
+              </div>
+              <!-- options -->
+
+              <!-- user -->
+              <div class="user">
+                <img src="img/avatar-1.png" alt="" @click="showMenu()">
+                <i class="fa fa-caret-down" @click="showMenu()"></i>
+
+                <div class="users-menu none">
+                  <ul>
+                    <li>
+                      <img src="img/avatar-1.png" alt=""> User 1
+                    </li>
+                    <li>
+                      <img src="img/avatar-2.png" alt=""> User 2
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- user -->
+
+            </div>
+            <!-- header right -->
 
           </div>
           <!-- container -->
@@ -47,51 +93,20 @@
           <!-- container -->
           <div class="container">
 
-            <!-- movies -->
-            <h2 v-if="moviesList.length > 0">MOVIES</h2>
-            <div class="flex main-container">
-
-              <!-- card -->
-              <div class="card-container" v-for="movie in moviesList">
-                <div class="cover">
-                  <img v-if="movie.poster_path" :src="'https://image.tmdb.org/t/p/w342' + movie.poster_path" alt="">
-                  <img v-else src="https://via.placeholder.com/342x513/BBADAF/000000/?text=POSTER+NOT+AVAILABLE" alt="">
-                </div>
-                <div class="info">
-                  <div> <strong>Title:</strong> {{movie.title}} </div>
-                  <div v-if="movie.original_title !== movie.title"> <strong>Original Title:</strong> {{movie.original_title}} </div>
-                  <div> <strong>Overview:</strong> {{movie.overview}} </div>
-                  <div>
-                    <strong>Lang:</strong>
-                    <img v-if="flags.includes(movie.original_language)" :src="'img/' + movie.original_language + '.png'" alt="" class="flag">
-                    <span v-else>{{movie.original_language}}</span>
-                  </div>
-                  <div class="vote">
-                    <strong>Vote:</strong>
-                    <i class="fa fa-star" v-for="x in vote(movie)"></i>
-                    <i class="fa fa-star-o" v-for="x in (5 - vote(movie))"></i>
-                  </div>
-                </div>
-              </div>
-              <!-- card -->
-
-            </div>
-            <!-- movies -->
-
             <!-- series -->
             <h2 v-if="seriesList.length > 0">TV SERIES</h2>
             <div class="flex main-container">
 
               <!-- card -->
-              <div class="card-container" v-for="serie in seriesList">
+              <div class="card-container" v-for="(serie, index) in seriesList">
                 <div class="cover">
-                  <img  v-if="serie.poster_path" :src="'https://image.tmdb.org/t/p/w342' + serie.poster_path" alt="">
-                  <img v-else src="https://via.placeholder.com/342x513/BBADAF/000000/?text=POSTER+NOT+AVAILABLE" alt="">
+                  <img  v-if="serie.poster_path" :src="'https://image.tmdb.org/t/p/w185' + serie.poster_path" alt="">
+                  <img v-else src="https://via.placeholder.com/185x278/BBADAF/000000/?text=POSTER+NOT+AVAILABLE" alt="">
                 </div>
                 <div class="info">
                   <div> <strong>Title:</strong> {{serie.name}} </div>
                   <div v-if="serie.original_name !== serie.name"> <strong>Original Title:</strong> {{serie.original_name}} </div>
-                  <div> <strong>Overview:</strong> {{serie.overview}} </div>
+                  <div class="overview"> <strong>Overview:</strong> {{serie.overview}} </div>
                   <div>
                     <strong>Lang:</strong>
                     <img v-if="flags.includes(serie.original_language)" :src="'img/' + serie.original_language + '.png'" alt="" class="flag">
@@ -108,6 +123,37 @@
 
             </div>
             <!-- series -->
+
+            <!-- movies -->
+            <h2 v-if="moviesList.length > 0">MOVIES</h2>
+            <div class="flex main-container">
+
+              <!-- card -->
+              <div class="card-container" v-for="(movie, index) in moviesList">
+                <div class="cover">
+                  <img v-if="movie.poster_path" :src="'https://image.tmdb.org/t/p/w185' + movie.poster_path" alt="">
+                  <img v-else src="https://via.placeholder.com/185x278/BBADAF/000000/?text=POSTER+NOT+AVAILABLE" alt="">
+                </div>
+                <div class="info">
+                  <div> <strong>Title:</strong> {{movie.title}} </div>
+                  <div v-if="movie.original_title !== movie.title"> <strong>Original Title:</strong> {{movie.original_title}} </div>
+                  <div class="overview"> <strong>Overview:</strong> {{movie.overview}} </div>
+                <div>
+                  <strong>Lang:</strong>
+                  <img v-if="flags.includes(movie.original_language)" :src="'img/' + movie.original_language + '.png'" alt="" class="flag">
+                  <span v-else>{{movie.original_language}}</span>
+                </div>
+                <div class="vote">
+                  <strong>Vote:</strong>
+                  <i class="fa fa-star" v-for="x in vote(movie)"></i>
+                  <i class="fa fa-star-o" v-for="x in (5 - vote(movie))"></i>
+                </div>
+              </div>
+            </div>
+            <!-- card -->
+
+          </div>
+          <!-- movies -->
 
           </div>
           <!-- container -->
