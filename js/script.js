@@ -26,7 +26,6 @@ new Vue({
       search: function () {
         this.moviesGenerator();
         this.seriesGenerator();
-        this.hideSearch();
       },
       // movies methods
       moviesGenerator: function() {
